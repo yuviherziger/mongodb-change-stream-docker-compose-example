@@ -1,0 +1,44 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      - mdb-cs
+    command: mongod --replSet rs0 --bind_ip_all --port 27017
+
+  receiver:
+    build: ./receiver
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    restart: always
+    networks:
+      - mdb-cs
+
+  watcher:
+    build: ./watcher
+    depends_on:
+      - mongo
+      - initialize
+    restart: always
+    links:
+      - mongo
+    networks:
+      - mdb-cs
+
+  initialize:
+    image: mongo:7.0
+    depends_on:
+      - mongo
+    networks:
+      - mdb-cs
+    command: mongosh "mongodb://mongo:27017" --eval "rs.initiate()"
+
+networks:
+  mdb-cs:
