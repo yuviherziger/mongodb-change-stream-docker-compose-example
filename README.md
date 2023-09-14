@@ -1,4 +1,4 @@
-# MongoDB Change Stream Example
+# MongoDB Change Stream & Docker Compose Example
 
 This example includes the following components in its docker-compose deployment:
 
