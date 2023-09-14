@@ -34,7 +34,28 @@ You should then see logs along the following lines:
 
 ```
 change-streams-ex-receiver-1  | INFO:     172.31.0.5:58190 - "POST /handle-event HTTP/1.1" 200 OK
-change-streams-ex-receiver-1  | Received message: {"_id": {"_data": "8265031FF0000000012B022C0100296E5A10040CDC634C37444E93900D360AE380A0EE46645F6964006465031FF0A5030D125EEC78B40004"}, "operationType": "insert", "clusterTime": {"$timestamp": "7278696538413465601"}, "wallTime": "2023-09-14T15:00:00.533Z", "fullDocument": {"_id": "65031ff0a5030d125eec78b4", "iter": 624, "message": "Hello from watcher"}, "ns": {"db": "cstestdb", "coll": "cstestcoll"}, "documentKey": {"_id": "65031ff0a5030d125eec78b4"}}
+change-streams-ex-receiver-1  | Received message: {
+	"_id": {
+		"_data": "8265031FF0000000012B022C0100296E5A10040CDC634C37444E93900D360AE380A0EE46645F6964006465031FF0A5030D125EEC78B40004"
+	},
+	"operationType": "insert",
+	"clusterTime": {
+		"$timestamp": "7278696538413465601"
+	},
+	"wallTime": "2023-09-14T15:00:00.533Z",
+	"fullDocument": {
+		"_id": "65031ff0a5030d125eec78b4",
+		"iter": 624,
+		"message": "Hello from watcher"
+	},
+	"ns": {
+		"db": "cstestdb",
+		"coll": "cstestcoll"
+	},
+	"documentKey": {
+		"_id": "65031ff0a5030d125eec78b4"
+	}
+}
 ```
 
 These events are coming from the change stream.
