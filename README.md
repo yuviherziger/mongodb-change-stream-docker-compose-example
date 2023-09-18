@@ -17,19 +17,13 @@ How to run this example:
     docker-compose up --detach --build
     ```
 
-2. Initialize the Replica Set:
-
-    ```shell
-    mongosh "mongodb://localhost:27017" --eval "rs.initiate()"
-    ```
-
-3. Tail the `receiver` container, which is a simple web service receiving events from the change stream
+2. Tail the `receiver` container, which is a simple web service receiving events from the change stream
    from the `watcher` container, where the change stream runs and inserts documents infinitely, in 1 second intervals.
 
     ```shell
     docker-compose logs -f receiver
     ```
-   
+
 You should then see logs along the following lines: 
 
 ```
@@ -59,3 +53,10 @@ change-streams-ex-receiver-1  | Received message: {
 ```
 
 These events are coming from the change stream.
+
+Please note: if you're not seeing any logs in the `receiver` container, the replica set might
+have not been initialized. In such case, you can run the following command to initialize it manually:
+
+```shell
+mongosh "mongodb://localhost:27017" --eval "rs.initiate()"
+```

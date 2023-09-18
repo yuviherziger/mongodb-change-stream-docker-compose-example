@@ -33,12 +33,14 @@ services:
       - mdb-cs
 
   initialize:
-    image: mongo:7.0
+    build:
+      context: .
+      dockerfile: init-mongo-rs.dockerfile
     depends_on:
       - mongo
     networks:
       - mdb-cs
-    command: mongosh "mongodb://mongo:27017" --eval "rs.initiate()"
+    entrypoint: /bin/bash /init-entrypoint.sh
 
 networks:
   mdb-cs:
